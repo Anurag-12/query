@@ -61,20 +61,7 @@ WHERE
 ORDER BY
   wx.date
   
- ##Array realted query in BIGQUERY
-SELECT
-  fullVisitorId,
-  date,
-  ARRAY_AGG(DISTINCT v2ProductName) AS products_viewed,
-  ARRAY_LENGTH(ARRAY_AGG(DISTINCT v2ProductName)) AS distinct_products_viewed,
-  ARRAY_AGG(DISTINCT pageTitle) AS pages_viewed,
-  ARRAY_LENGTH(ARRAY_AGG(DISTINCT pageTitle)) AS distinct_pages_viewed
-  FROM `data-to-insights.ecommerce.all_sessions`
-WHERE visitId = 1501570398
-GROUP BY fullVisitorId, date
-ORDER BY date
-  
-  
+
   
  # How about joining the bicycle rentals data against weather data to learn whether there are fewer bicycle rentals on rainy days?
   WITH bicycle_rentals AS (
@@ -108,3 +95,18 @@ FROM bicycle_rentals AS bk
 JOIN rainy_days AS wx
 ON wx.date = bk.trip_date
 GROUP BY wx.rainy
+
+
+
+ ##Array realted query in BIGQUERY
+SELECT
+  fullVisitorId,
+  date,
+  ARRAY_AGG(DISTINCT v2ProductName) AS products_viewed,
+  ARRAY_LENGTH(ARRAY_AGG(DISTINCT v2ProductName)) AS distinct_products_viewed,
+  ARRAY_AGG(DISTINCT pageTitle) AS pages_viewed,
+  ARRAY_LENGTH(ARRAY_AGG(DISTINCT pageTitle)) AS distinct_pages_viewed
+  FROM `data-to-insights.ecommerce.all_sessions`
+WHERE visitId = 1501570398
+GROUP BY fullVisitorId, date
+ORDER BY date
